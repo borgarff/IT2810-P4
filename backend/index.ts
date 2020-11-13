@@ -56,10 +56,15 @@ const typeDefs = `
   }
 `;
 
+
+
 // Provide resolver functions for your schema fields
 const resolvers = {
   Query: {
     stopPlace: async (_root:any, id:string) => {
+      id = JSON.stringify(id);
+      id = id.replace('{"id":"', '');
+      id = id.replace('"}', '');
       try {
         //Trying to fetch with POST from the API
         const results = await fetch(
@@ -81,7 +86,8 @@ const resolvers = {
         );
         //Converting result into json format
         const stopplaceData = await results.json();
-
+        console.log(stopplaceData.data.stopPlace)
+        
         return stopplaceData.data.stopPlace;
       } catch (e) {
         console.error(e);
@@ -111,5 +117,5 @@ const server = new ApolloServer({
 });
 
 server.listen().then(( url ) => {
-  console.log(`🚀 Server ready at ${url}`);
+  console.log(`🚀 Server ready at ` + url);
 });
