@@ -65,6 +65,7 @@ const resolvers = {
       id = JSON.stringify(id);
       id = id.replace('{"id":"', '');
       id = id.replace('"}', '');
+      console.log(id)
       try {
         //Trying to fetch with POST from the API
         const results = await fetch(

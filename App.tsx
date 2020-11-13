@@ -5,6 +5,7 @@ import { ApolloProvider } from "@apollo/client";
 import { styles } from './Styling/Styles';
 import { client }  from './Components/ApolloLinks';
 import { Separator } from './Components/UI_Components'
+import Travel from './Travel';
 
 
 export default function App() {
@@ -27,6 +28,10 @@ export default function App() {
         title="Søk "
         onPress={() => Alert.alert('Søk knapp trykket')}
         />
+      </View>
+      <Separator />
+      <View style={{backgroundColor: "white"}}>
+        <Travel />
       </View>
     </ScrollView>
     </ApolloProvider>
