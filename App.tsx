@@ -1,18 +1,34 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { Alert, Button, ScrollView, Text, TextInput, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Alert, AsyncStorage, Button, Text, TextInput, View } from 'react-native';
 import { ApolloProvider } from "@apollo/client";
 import { styles } from './Styling/Styles';
-import { client }  from './Components/ApolloLinks';
+import { client, cache }  from './Components/ApolloLinks';
+import { persistCache } from 'apollo3-cache-persist'
 import { Separator } from './Components/UI_Components'
 import Travel from './Travel';
+import { AppLoading } from 'expo';
 
 
 export default function App() {
   console.log("App startet")
+
+  const [loadingCache, setLoadingCache] = useState(true)
+
+  useEffect(() => {
+    persistCache({
+      cache,
+      storage: AsyncStorage,
+    }).then(() => setLoadingCache(false))
+  }, [])
+
+  if (loadingCache) {
+    return <AppLoading />
+  }
+  
   return (
     <ApolloProvider client={client}>
-    <ScrollView style={styles.bodyStyles}>
+    <View style={styles.bodyStyles}>
       <View style={styles.headerStyles}>
         <View style={styles.container}>
           <Text>Dette skal bli en app, snart!</Text>
@@ -33,7 +49,7 @@ export default function App() {
       <View style={{backgroundColor: "white"}}>
         <Travel />
       </View>
-    </ScrollView>
+    </View>
     </ApolloProvider>
   );
 }

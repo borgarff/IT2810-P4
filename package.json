@@ -10,6 +10,7 @@
   "dependencies": {
     "@apollo/client": "^3.2.5",
     "apollo-server": "^2.19.0",
+    "apollo3-cache-persist": "^0.8.0",
     "expo": "~39.0.2",
     "expo-status-bar": "~1.0.2",
     "graphql": "^15.4.0",

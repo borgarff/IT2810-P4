@@ -1,39 +1,8 @@
 import React from 'react';
-import { gql, useQuery } from "@apollo/client";
-import { View, Text } from "react-native";
-//import { TRAVEL_QUERY } from "./Querys/Query";
-
-
-
-const TRAVEL_QUERY = gql`
-query getStop($id: String!){
-  stopPlace(id: $id) {
-    id
-    name
-    estimatedCalls {     
-      realtime
-      aimedArrivalTime
-      aimedDepartureTime
-      expectedArrivalTime
-      expectedDepartureTime
-      date
-      destinationDisplay {
-        frontText
-      }
-      serviceJourney {
-        journeyPattern {
-          line {
-            name
-            transportMode
-            publicCode
-          }
-        }
-      }
-    }
-  }
-}
-`;
-
+import { useQuery } from "@apollo/client";
+import { View, Text, FlatList, Button } from "react-native";
+import { TRAVEL_QUERY } from "./Querys/Query";
+import { AppLoading } from 'expo';
 
 interface stopPlaceData {
   stopPlace: stopPlace;
@@ -41,17 +10,11 @@ interface stopPlaceData {
 
 interface stopPlace {
   id: string;
-  name: string;
   estimatedCalls: estimatedCalls[];
 }
 
 interface estimatedCalls {
-  realtime: boolean;
-  aimedArrivalTime: string;
-  aimedDepartureTime: string;
   expectedArrivalTime: string;
-  expectedDepartureTime: string;
-  date: string;
   destinationDisplay: destinationDisplay;
   serviceJourney: serviceJourney;
 }
@@ -70,39 +33,55 @@ interface journeyPattern {
 
 interface line {
   name: string;
-  transportMode: string;
   publicCode: number;
 }
 
 interface stopPlaceVars {
   id: string;
 }
-  
-  interface Props{
-      id: string;
-  }
-  
+
+interface Props{
+	id: string;
+}
+
+const renderItem = ( item:any ) => {
+  const backgroundColor = 'black';
+}
   export default function Travel() {
     const { loading, data, error } = useQuery<stopPlaceData, stopPlaceVars>(
     TRAVEL_QUERY,
         {variables: { id: "NSR:StopPlace:337"}}
     );
     let stopPlaceView: JSX.Element | null = null;
-    
+
+
+
+    console.log("Kjører query test")
     console.log(data)
-    if (loading) stopPlaceView = (<Text>Loading...</Text>)
-    if (error) stopPlaceView = (<Text>Det har skjedd en feil</Text>)
+    if (loading) stopPlaceView = ( <Text>Loading...</Text> )
     if (data) stopPlaceView = (
-    <View>
-        {data && data.stopPlace.estimatedCalls.map( (linje) => (
-            <View>
-                <Text>Test</Text>
-                <Text>{linje.destinationDisplay.frontText}</Text>
-                {console.log(linje.destinationDisplay.frontText)}
-            </View>
-        ))}
-    </View>
+      <Button title="data" onPress={() => console.log(data)}/>
     )
+    if (error) stopPlaceView = (<Text>Det har skjedd en feil</Text>)
 
     return stopPlaceView;
 }
+
+/*
+      <FlatList data={data.stopPlace.estimatedCalls} 
+      renderItem={ (linje) => (
+        <View>
+          <Text>{linje.item.destinationDisplay.frontText}</Text>
+        </View>
+      ) } 
+      initialNumToRender={5}/>
+
+
+          <View>
+      {data && data.stopPlace.estimatedCalls.map( (linje) => 
+        <View>
+          <Text>{linje.destinationDisplay.frontText}</Text>
+        </View>
+      )}
+    </View>
+*/
