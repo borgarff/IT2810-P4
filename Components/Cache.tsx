@@ -1,4 +1,5 @@
 import { persistCache } from "apollo3-cache-persist"
+import { AppLoading } from "expo"
 import { useEffect, useState } from "react"
 import { AsyncStorage } from "react-native"
 import { cache } from "./ApolloLinks"
@@ -6,7 +7,7 @@ import { cache } from "./ApolloLinks"
 
 
 
-const [loadingCache, setLoadingCache] = useState(true)
+export const [loadingCache, setLoadingCache] = useState(true)
   
     useEffect(() => {
       persistCache({
@@ -15,7 +16,8 @@ const [loadingCache, setLoadingCache] = useState(true)
       }).then(() => setLoadingCache(false))
     }, [])
   
-    if (loadingCache) {
-      return <AppLoading />
-    }
-    
+/*
+if (loadingCache) return (
+  <AppLoading />
+)
+*/
