@@ -30,7 +30,9 @@ export const styles = StyleSheet.create({
         borderBottomColor: '#737373',
         borderBottomWidth: StyleSheet.hairlineWidth,
       },
-      textinputStyles: {
-        
+      LocationStyles: {
+        backgroundColor: 'white',
+        alignItems: 'center',
+        margin: 50
       }
   });

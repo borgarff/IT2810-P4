@@ -39,7 +39,7 @@ export default function App() {
       </View>
       <View style={styles.searchStyles}>
         <TextInput
-            style={styles.textinputStyles} placeholder="Søk her" autoFocus onKeyPress={() => console.log("Tast registrert")}
+            placeholder="Søk her" autoFocus onKeyPress={() => console.log("Tast registrert")}
           />
         <Button 
         title="Søk "
@@ -47,7 +47,7 @@ export default function App() {
         />
       </View>
       <Separator />
-      <View style={{backgroundColor: "white"}}>
+      <View style={styles.LocationStyles}>
         <Gedocoder />
       </View>
     </View>

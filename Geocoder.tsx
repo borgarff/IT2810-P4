@@ -1,8 +1,9 @@
 import React from 'react';
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { View, Text, FlatList, Button } from "react-native";
 import { LOCATION_QUERY } from './Querys/Query'
 
+//Types for the Location data
 interface locationData {
     features: features[];
 }
@@ -22,6 +23,7 @@ interface locationVars {
     name: string;
 }
 
+//Props that handels state managment
 interface Props{
 	name: string;
 	onChange: any;
@@ -30,26 +32,30 @@ interface Props{
 
 
 export default function Geocoder(){
+    //Requesting location from this query
     const {loading, error, data} = useQuery<locationData, locationVars>(
         LOCATION_QUERY,
-				{variables: {name: "Trondheim"}}
+		{variables: {name: "Trondheim"}}
     );
 
+    //Making a new empty JSX element
     let loactinVeiw: JSX.Element | null = null;
+
     console.log(data)
+    //Set the JSX to be one of these elements based on the query
     if (loading) loactinVeiw =  (<Text>Loading...</Text>)
     if (error) loactinVeiw = (<Text>Ikke kontakt med Server, eller en feil har oppstått</Text>)
     if (data) loactinVeiw = (
-        <FlatList data={data.features} 
+        <FlatList style={({margin: 30})} data={data.features} 
         renderItem={ (place) => (
-          <View>
+          <View style={({margin: 10})}>
             <Text>{place.item.properties.name}</Text>
+            <Button title="Hent Rutetider" onPress={() => console.log(place.item.properties.id)}/>
           </View>
-        ) } 
+        ) }
+        keyExtractor={ (place) => (place.properties.id)}
         initialNumToRender={5}/>
-        
     )
-
     return loactinVeiw;
 }
 
