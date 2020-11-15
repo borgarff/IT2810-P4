@@ -91,7 +91,7 @@ const resolvers = {
       try {
         //Trying to fetch with GET from API
         const results = await fetch(
-          `https://api.entur.io/geocoder/v1/autocomplete?text=${name}&size=5&lang=no`
+          `https://api.entur.io/geocoder/v1/autocomplete?text=${name}&size=10&lang=no`
         );
 
         //Getting json information from results

@@ -2,6 +2,7 @@ import React from 'react';
 import { useQuery } from "@apollo/client";
 import { View, Text, FlatList, Button } from "react-native";
 import { LOCATION_QUERY } from './Querys/Query'
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 //Types for the Location data
 interface locationData {
@@ -35,7 +36,7 @@ export default function Geocoder(){
     //Requesting location from this query
     const {loading, error, data} = useQuery<locationData, locationVars>(
         LOCATION_QUERY,
-		{variables: {name: "Trondheim"}}
+		{variables: {name: "Oslo"}}
     );
 
     //Making a new empty JSX element
@@ -46,15 +47,15 @@ export default function Geocoder(){
     if (loading) loactinVeiw =  (<Text>Loading...</Text>)
     if (error) loactinVeiw = (<Text>Ikke kontakt med Server, eller en feil har oppstått</Text>)
     if (data) loactinVeiw = (
-        <FlatList style={({margin: 30})} data={data.features} 
+        <FlatList style={({margin: 20})} data={data.features} 
         renderItem={ (place) => (
           <View style={({margin: 10})}>
-            <Text>{place.item.properties.name}</Text>
+            <Text style={({color: "white"})}>{place.item.properties.name}</Text>
             <Button title="Hent Rutetider" onPress={() => console.log(place.item.properties.id)}/>
           </View>
         ) }
         keyExtractor={ (place) => (place.properties.id)}
-        initialNumToRender={5}/>
+        initialNumToRender={15}/>
     )
     return loactinVeiw;
 }

@@ -31,7 +31,7 @@ export const styles = StyleSheet.create({
         borderBottomWidth: StyleSheet.hairlineWidth,
       },
       LocationStyles: {
-        backgroundColor: 'white',
+        color: "white",
         alignItems: 'center',
         margin: 50
       }
