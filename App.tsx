@@ -7,6 +7,7 @@ import { client, cache }  from './Components/ApolloLinks';
 import { persistCache } from 'apollo3-cache-persist'
 import { Separator } from './Components/UI_Components'
 import Travel from './Travel';
+import Gedocoder from './Geocoder'
 import { AppLoading } from 'expo';
 
 
@@ -47,7 +48,7 @@ export default function App() {
       </View>
       <Separator />
       <View style={{backgroundColor: "white"}}>
-        <Travel />
+        <Gedocoder />
       </View>
     </View>
     </ApolloProvider>

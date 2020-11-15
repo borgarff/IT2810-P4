@@ -96,7 +96,7 @@ const resolvers = {
 
         //Getting json information from results
         const placeData = await results.json();
-
+          console.log(placeData)
         return placeData.features;
       } catch (e) {
         console.log(e);
