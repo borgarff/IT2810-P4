@@ -62,7 +62,7 @@ export default class App extends Component {
         </View>
         <Separator />
         <View style={styles.LocationStyles}>
-          <Gedocoder />
+          <Travel id={"NSR:StopPlace:44085"}/>
         </View>
       </ScrollView>
       </ApolloProvider>

@@ -44,44 +44,30 @@ interface Props{
 	id: string;
 }
 
-const renderItem = ( item:any ) => {
-  const backgroundColor = 'black';
-}
-  export default function Travel() {
+
+  export default function Travel(stopID:Props) {
     const { loading, data, error } = useQuery<stopPlaceData, stopPlaceVars>(
     TRAVEL_QUERY,
-        {variables: { id: "NSR:StopPlace:337"}}
+        {variables: { id: stopID.id}}
     );
     let stopPlaceView: JSX.Element | null = null;
 
 
-
-    console.log("Kjører query test")
-    console.log(data)
     if (loading) stopPlaceView = ( <Text>Loading...</Text> )
     if (data) stopPlaceView = (
-      <Button title="data" onPress={() => console.log(data)}/>
+      <View>
+          <FlatList style={({margin: 20})} data={data.stopPlace.estimatedCalls} 
+          renderItem={ (linje ) => (
+            <View style={({margin: 10})}>
+              <Text style={({color: "white"})}>{linje.item.destinationDisplay.frontText}</Text>
+            </View>
+          ) }
+          keyExtractor={(linje) => (linje.expectedArrivalTime)}
+          initialNumToRender={15}/>
+      </View>
+
     )
-    if (error) stopPlaceView = (<Text>Det har skjedd en feil</Text>)
+    if (error) stopPlaceView = (<Text style={({color: "white"})}>Det har skjedd en feil</Text>)
 
     return stopPlaceView;
 }
-
-/*
-      <FlatList data={data.stopPlace.estimatedCalls} 
-      renderItem={ (linje) => (
-        <View>
-          <Text>{linje.item.destinationDisplay.frontText}</Text>
-        </View>
-      ) } 
-      initialNumToRender={5}/>
-
-
-          <View>
-      {data && data.stopPlace.estimatedCalls.map( (linje) => 
-        <View>
-          <Text>{linje.destinationDisplay.frontText}</Text>
-        </View>
-      )}
-    </View>
-*/

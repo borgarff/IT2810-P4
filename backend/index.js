@@ -80,7 +80,8 @@ const resolvers = {
         );
         //Converting result into json format
         const stopplaceData = await results.json();
-        console.log(stopplaceData.data.stopPlace)
+        console.log(stopplaceData)
+        //console.log(stopplaceData.data.stopPlace)
 
         return stopplaceData.data.stopPlace;
       } catch (e) {
