@@ -24,6 +24,7 @@ export default class App extends Component {
 	}
 
 	new_search = () => {
+    console.log("Setter ny state")
 		this.setState({show: "search"})
 	}
 
@@ -45,7 +46,7 @@ export default class App extends Component {
       <ScrollView style={styles.bodyStyles}>
         <View style={styles.headerStyles}>
           <View style={styles.container}>
-            <Text>Dette skal bli en app, snart!</Text>
+            <Text style={({fontSize: 30})}>Reiseplanlegger</Text>
             <StatusBar style="auto" />
           </View>
           <Separator />
@@ -57,6 +58,7 @@ export default class App extends Component {
               input_value={this.state.input_value}
               search_on_change={this.search_on_change}
               id={this.state.id}
+              new_search={this.new_search}
               />
         </View>
         <View style={styles.LocationStyles}>

@@ -6,7 +6,8 @@ import { cache } from "./ApolloLinks"
 
 
 
-
+//This is the cache componet. 
+//If you dont have access to the data from server
 export const [loadingCache, setLoadingCache] = useState(true)
   
     useEffect(() => {

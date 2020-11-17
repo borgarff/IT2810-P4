@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native'
 
-
+//All the styles in the application
 export const styles = StyleSheet.create({
     headerStyles: {
         margin: 0,
@@ -34,5 +34,21 @@ export const styles = StyleSheet.create({
         color: "white",
         alignItems: 'center',
         margin: 50
+      },
+      depatureStyles: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        margin: 20
+      },
+      depatureHeader: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        backgroundColor: 'lightseagreen',
+        margin: 10
+      },
+      textStyles:{
+        textAlign: 'center',
+        color: 'white',
+        margin: 10
       }
   });

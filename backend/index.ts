@@ -65,7 +65,6 @@ const resolvers = {
       id = JSON.stringify(id);
       id = id.replace('{"id":"', '');
       id = id.replace('"}', '');
-      console.log(id)
       try {
         //Trying to fetch with POST from the API
         const results = await fetch(
@@ -87,7 +86,6 @@ const resolvers = {
         );
         //Converting result into json format
         const stopplaceData = await results.json();
-        console.log(stopplaceData.data.stopPlace)
         
         return stopplaceData.data.stopPlace;
       } catch (e) {
@@ -95,10 +93,13 @@ const resolvers = {
       }
     },
     features: async (_root:any, name:string) => {
+      name = JSON.stringify(name);
+      name = name.replace('{"name":"', '');
+      name = name.replace('"}', '');
       try {
         //Trying to fetch with GET from API
         const results = await fetch(
-          `https://api.entur.io/geocoder/v1/autocomplete?text=${name}&size=5&lang=no`
+          `https://api.entur.io/geocoder/v1/autocomplete?text=`+name+`&size=5&lang=no`
         );
 
         //Getting json information from results
@@ -118,5 +119,5 @@ const server = new ApolloServer({
 });
 
 server.listen().then(( url ) => {
-  console.log(`🚀 Server ready at ` + url);
+  console.log(`🚀 Server ready at http://localhost:4000/`);
 });

@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-
+//The querys used in this application
 
 export const TRAVEL_QUERY = gql`
 query getStop($id: String!){

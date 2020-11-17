@@ -6,28 +6,26 @@ import Travel from './Travel';
 interface Element_props{
 	value: string;
 	type: any;
-	search_on_change?: any;
+    search_on_change?: any;
 }
 
 interface Props{
 	layout: string;
 	input_value: string;
 	keyword: string;
-	search_on_change: any;
+    search_on_change: any;
+    new_search: any;
 	id: string;
 }
 
-
-
-function getRandomInt(max:number) {
-    return Math.floor(Math.random() * Math.floor(max));
-  }
-
+  //Returns the search bar and button elements
 function Element(props:Element_props){
     const [inputText, setInput] = useState("")
 
     let elementView: JSX.Element | null = null;
 
+    //The button press will change the state 
+    //and give you the search results 
 	if(props.type === "placeholder"){
 		elementView = (
             <View style={styles.searchStyles}>
@@ -58,26 +56,34 @@ function Element(props:Element_props){
 export default function Presentation(props:Props){
 
     let presentationView: JSX.Element | null = null;
+
+    //This switch returns the a JSX element based on the application state
     switch (props.layout) {
         case "search": 
         presentationView = (
             <View>
-                <Text>Se avganger fra ditt stoppested</Text>
                 <Element type="placeholder" value="Søk her" search_on_change={props.search_on_change} />
+                <Text style={styles.textStyles}>Se avganger fra ditt stoppested</Text>
             </View>
         );break;
         case "Geocoder": presentationView = (
-            <View>
-                <Text>Kommende avganger</Text>
+            <View >
+                <Button title="Nytt søk" onPress={() => props.new_search()}/>
+                <Text style={styles.textStyles}>Kommende avganger</Text>
+                <View style={styles.depatureHeader}>
+                    <Text>Ankomst</Text>
+                    <Text>Linje</Text>
+                    <Text>Rute</Text>
+                </View>
                 <Travel id={props.id}/>
             </View>
         ); break;
         case "results": presentationView = (
             <View>
-                <Text>
+                <Element type="defaultValue" value={props.keyword} search_on_change={props.search_on_change}/>
+                <Text style={styles.textStyles}>
                     Velg en av følgende steder:
                 </Text>
-                <Element type="defaultValue" value={props.keyword} search_on_change={props.search_on_change}/>
             </View>
         ); break;
         default: presentationView = (
@@ -88,53 +94,3 @@ export default function Presentation(props:Props){
     }
     return presentationView;
 }
-
-
-/*
-Her er det ting fra prosjekt 3. Bør fjernes når jeg er ferdig
-
-function Element(props:Element_props){
-	if(props.type === "placeholder"){
-		return(
-		<input type="text" className="searchbar" placeholder={props.value} autoFocus onChange={props.search_on_change}/>
-		);
-	}
-	return(
-		<input type="text" className="searchbar" defaultValue={props.value} autoFocus onChange={props.search_on_change}/>
-	);
-}
-
-
-export default function Presentation(props:Props){
-	if(props.layout === "search"){
-	return(
-		<>
-			<p>
-				Se avganger fra ditt stoppested
-			</p>
-			<Element type="placeholder" value="Søk her" search_on_change={props.search_on_change}/>
-		</>
-	);
-	}
-	else if(props.layout === "Geocoder"){
-		return(
-			<>
-				<p>Kommende avganger</p>
-				<Travel id={props.id}/>
-			</>
-		);
-	}
-	else if (props.layout === "results"){
-		return(
-			<>
-				<p>
-					Velg en av følgende steder:
-				</p>
-				<Element type="defaultValue" value={props.keyword} search_on_change={props.search_on_change}/>
-				
-			</>
-		);
-	}
-	else return <p>Siden ikke funnet</p>
-}
-*/
