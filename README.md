@@ -3,7 +3,7 @@ Prosjektoppgave 4 for faget IT2810. Bruk av react native
 ### For å starte applikasjonen
 Hvis du skal teste med din fysiske mobil, så må du endre uri i ApolloLinks.tsx til din IP adresse
 kan for eks. uri: 'http://192.168.1.10:4000/'; //linje 7
-Hvis du bruker en android eller IOS simulator skal du ikke trenge å endre denne.
+Hvis du bruker en android eller IOS simulator må du kanskje også endre denne.
 
 for å starte ts-node:
 npm install -D ts-node
@@ -34,6 +34,8 @@ Jeg har brukt Apollo sitt GraphQL verktøy både for Frontend og backend (Apollo
 Jeg har hentet mye av dataen jeg har brukt fra Entur sitt API. Det skal også være mulig å hente noe data som jeg har laget lokal på den ene backend serveren. 
 Hvis det ikke skulle være mulig å få kontakt med API'et.
 Under her kan du se en query som kjøres for å hente data.
+Det er ikke alle lokasjoner som har et stoppested, og da vil det bare komme opp en feilmelding. 
+Prøv gjerne å søk opp noen stopp du vet om.
 
 ``` features(name: $name) {
       properties{
