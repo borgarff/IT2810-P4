@@ -53,7 +53,7 @@ interface Props{
     let stopPlaceView: JSX.Element | null = null;
 
 
-    if (loading) stopPlaceView = ( <Text>Loading...</Text> )
+    if (loading) stopPlaceView = ( <Text style={({color: "white"})}>Loading...</Text> )
     if (data) stopPlaceView = (
       <View>
           <FlatList style={({margin: 20})} data={data.stopPlace.estimatedCalls} 

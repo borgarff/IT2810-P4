@@ -32,59 +32,40 @@ interface Props{
 }
 
 
-export default function Geocoder(){
+export default function Geocoder(props:Props){
+    //Making a new empty JSX element
+    let locationVeiw: JSX.Element | null = null;
+
     //Requesting location from this query
     const {loading, error, data} = useQuery<locationData, locationVars>(
         LOCATION_QUERY,
-		{variables: {name: "Oslo"}}
+		{variables: {name: props.name}}
     );
 
-    //Making a new empty JSX element
-    let loactinVeiw: JSX.Element | null = null;
-
-    console.log(data)
-    //Set the JSX to be one of these elements based on the query
-    if (loading) loactinVeiw =  (<Text>Loading...</Text>)
-    if (error) loactinVeiw = (<Text>Ikke kontakt med Server, eller en feil har oppstått</Text>)
-    if (data) loactinVeiw = (
-        <FlatList style={({margin: 20})} data={data.features} 
-        renderItem={ (place) => (
-          <View style={({margin: 10})}>
-            <Text style={({color: "white"})}>{place.item.properties.name}</Text>
-            <Button title="Hent Rutetider" onPress={() => console.log(place.item.properties.id)}/>
-          </View>
-        ) }
-        keyExtractor={ (place) => (place.properties.id)}
-        initialNumToRender={15}/>
-    )
-    return loactinVeiw;
-}
-
-
-/*
-	const search_on_change = (id:string) => {
-		//console.log(event.target.value);
+    const search_on_change = (id:string) => {
 		console.log("const search_on_change");
 		console.log(id)
 		props.onChange("Geocoder", id)
 	}
 
-    if (loading) return <p>Loading...</p>
-		if(props.show === "results"){
-			return (
-					<div>
-						{data && data.features.map( (test, index) => (
-							<div className="Geocoder" key={index}>
-									<p>{test.properties.name}</p>
-									<button
-										onClick={() => search_on_change(test.properties.id)}> 
-
-										Hent rutetider
-									</button> <br/>
-							</div>
-					))}
-					</div>
-			);
-		}
-	return <p></p>
-*/
+    //Set the JSX to be one of these elements based on the query
+    if (loading) locationVeiw =  (<Text>Loading...</Text>)
+    if (error) locationVeiw = (<Text>Ikke kontakt med Server, eller en feil har oppstått</Text>)
+    if (data) {
+        if(props.show === "results") {
+            locationVeiw = (
+                <FlatList style={({margin: 20})} data={data.features} 
+                renderItem={ (place) => (
+                  <View style={({margin: 10})}>
+                    <Text style={({color: "white"})}>{place.item.properties.name}</Text>
+                    <Button title="Hent Rutetider" onPress={() => search_on_change(place.item.properties.id)}/>
+                  </View>
+                ) }
+                keyExtractor={ (place) => (place.properties.id)}
+                initialNumToRender={15}/>
+            )
+        }
+        else locationVeiw = <Text />
+    }
+    return locationVeiw;
+}

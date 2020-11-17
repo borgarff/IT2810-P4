@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Alert, AsyncStorage, Button, ScrollView, Text, TextInput, View } from 'react-native';
+import { styles } from './Styling/Styles';
 import Travel from './Travel';
 
 interface Element_props{
@@ -16,17 +17,38 @@ interface Props{
 	id: string;
 }
 
+
+
+function getRandomInt(max:number) {
+    return Math.floor(Math.random() * Math.floor(max));
+  }
+
 function Element(props:Element_props){
+    const [inputText, setInput] = useState("")
 
     let elementView: JSX.Element | null = null;
 
 	if(props.type === "placeholder"){
 		elementView = (
-		<TextInput placeholder={props.value} autoFocus onChange={props.search_on_change}/>
+            <View style={styles.searchStyles}>
+                <TextInput placeholder={props.value} autoFocus onChangeText={text => (setInput(text))} value={inputText}/>
+                <Button 
+                title="Søk "
+                onPress={() => props.search_on_change(inputText)}
+                />
+            </View>
+		
 		);
 	}
-	else elementView =(
-		<TextInput defaultValue={props.value} autoFocus onChange={props.search_on_change}/>
+	else elementView = (
+        <View style={styles.searchStyles}>
+            <TextInput defaultValue={props.value} autoFocus onChangeText={text => (setInput(text))} value={inputText}/>
+            <Button 
+            title="Søk "
+            onPress={() => props.search_on_change(inputText)}
+            />
+        </View>
+		
     );
     
     return elementView;
@@ -46,7 +68,7 @@ export default function Presentation(props:Props){
         );break;
         case "Geocoder": presentationView = (
             <View>
-                <p>Kommende avganger</p>
+                <Text>Kommende avganger</Text>
                 <Travel id={props.id}/>
             </View>
         ); break;

@@ -9,6 +9,8 @@ import { loadingCache } from './Components/Cache'
 import Travel from './Travel';
 import Gedocoder from './Geocoder'
 import { AppLoading } from 'expo';
+import Presentation from './Presentation';
+import Geocoder from './Geocoder';
 
 
 export default class App extends Component {
@@ -28,18 +30,15 @@ export default class App extends Component {
 	// Event listener which is being sent as props to the
 	// Presentation component and listening for change in
 	// input at the search area
-	search_on_change = (event:any) => {
-		console.log("change of state occured: ", event.target.value)
+	search_on_change = (value:string) => {
+		console.log("change of state occured: ", value)
 		this.setState(
-			{show: "results", keyword: event.target.value}
-		)
+			{show: "results", keyword: value}
+    )
+    console.log(value) //Fant en feil her
 	}
 
   render() {
-    
-    function getRandomInt(max:number) {
-      return Math.floor(Math.random() * Math.floor(max));
-    }
 
     return (
       <ApolloProvider client={client}>
@@ -51,18 +50,20 @@ export default class App extends Component {
           </View>
           <Separator />
         </View>
-        <View style={styles.searchStyles}>
-          <TextInput
-              placeholder="Søk her" autoFocus onKeyPress={() => console.log("Tast registrert")}
-            />
-          <Button 
-          title="Søk "
-          onPress={() => Alert.alert('Søk knapp trykket og et ramdom tall ' + getRandomInt(1000))}
-          />
+        <View>
+            <Presentation 
+              layout={this.state.show}
+              keyword={this.state.keyword}
+              input_value={this.state.input_value}
+              search_on_change={this.search_on_change}
+              id={this.state.id}
+              />
         </View>
-        <Separator />
         <View style={styles.LocationStyles}>
-          <Travel id={"NSR:StopPlace:44085"}/>
+          <Geocoder
+            show={this.state.show}
+            name={this.state.keyword}
+            onChange={this.handleChange} />
         </View>
       </ScrollView>
       </ApolloProvider>
