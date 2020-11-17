@@ -1,22 +1,225 @@
 const { ApolloServer } = require("apollo-server");
 const fetch = require("node-fetch");
+//const stopPlaces = require('data');
+
+const stopPlaces = [
+  {
+      id: "NSR:StopPlace:60066",
+      name: "Trondheim hurtigbåtterminal",
+      estimatedCalls: [
+          {
+          realtime: true,
+          aimedArrivalTime: "2020-11-17T22:46:00+0100",
+          aimedDepartureTime: "2020-11-17T22:46:00+0100",
+          expectedArrivalTime: "2020-11-17T22:46:00+0100",
+          expectedDepartureTime: "2020-11-17T22:46:00+0100",
+          date: "2020-11-17",
+          destinationDisplay: {
+              frontText: "Vikåsen via Singsaker"
+          },
+          serviceJourney: {
+              journeyPattern: {
+              line: {
+                  name: "Vikåsen- Strindheim- Singsaker",
+                  transportMode: "bus"
+              }
+              }
+          }
+          },
+          {
+          realtime: true,
+          aimedArrivalTime: "2020-11-17T23:06:00+0100",
+          aimedDepartureTime: "2020-11-17T23:06:00+0100",
+          expectedArrivalTime: "2020-11-17T23:06:00+0100",
+          expectedDepartureTime: "2020-11-17T23:06:00+0100",
+          date: "2020-11-17",
+          destinationDisplay: {
+              frontText: "Vikåsen via Singsaker"
+          },
+          serviceJourney: {
+              journeyPattern: {
+              line: {
+                  name: "Vikåsen- Strindheim- Singsaker",
+                  transportMode: "bus"
+              }
+              }
+          }
+          },
+          {
+          realtime: true,
+          aimedArrivalTime: "2020-11-17T23:26:00+0100",
+          aimedDepartureTime: "2020-11-17T23:26:00+0100",
+          expectedArrivalTime: "2020-11-17T23:26:00+0100",
+          expectedDepartureTime: "2020-11-17T23:26:00+0100",
+          date: "2020-11-17",
+          destinationDisplay: {
+              frontText: "Vikåsen via Singsaker"
+          },
+          serviceJourney: {
+              journeyPattern: {
+              line: {
+                  name: "Vikåsen- Strindheim- Singsaker",
+                  transportMode: "bus"
+              }
+              }
+          }
+          },
+          {
+          realtime: false,
+          aimedArrivalTime: "2020-11-17T23:30:00+0100",
+          aimedDepartureTime: "2020-11-17T23:30:00+0100",
+          expectedArrivalTime: "2020-11-17T23:30:00+0100",
+          expectedDepartureTime: "2020-11-17T23:30:00+0100",
+          date: "2020-11-17",
+          destinationDisplay: {
+              frontText: "Vanvikan"
+          },
+          serviceJourney: {
+              journeyPattern: {
+              line: {
+                  name: "Trondheim - Vanvikan",
+                  transportMode: "water"
+              }
+              }
+          }
+          },
+          {
+          realtime: false,
+          aimedArrivalTime: "2020-11-17T23:46:00+0100",
+          aimedDepartureTime: "2020-11-17T23:46:00+0100",
+          expectedArrivalTime: "2020-11-17T23:46:00+0100",
+          expectedDepartureTime: "2020-11-17T23:46:00+0100",
+          date: "2020-11-17",
+          destinationDisplay: {
+              frontText: "Vikåsen via Singsaker"
+          },
+          serviceJourney: {
+              journeyPattern: {
+              line: {
+                  name: "Vikåsen- Strindheim- Singsaker",
+                  transportMode: "bus"
+              }
+              }
+          }
+          },
+          {
+          realtime: false,
+          aimedArrivalTime: "2020-11-18T00:06:00+0100",
+          aimedDepartureTime: "2020-11-18T00:06:00+0100",
+          expectedArrivalTime: "2020-11-18T00:06:00+0100",
+          expectedDepartureTime: "2020-11-18T00:06:00+0100",
+          date: "2020-11-17",
+          destinationDisplay: {
+              frontText: "Vikåsen via Singsaker"
+          },
+          serviceJourney: {
+              journeyPattern: {
+              line: {
+                  name: "Vikåsen- Strindheim- Singsaker",
+                  transportMode: "bus"
+              }
+              }
+          }
+          },
+          {
+          realtime: false,
+          aimedArrivalTime: "2020-11-18T06:06:00+0100",
+          aimedDepartureTime: "2020-11-18T06:06:00+0100",
+          expectedArrivalTime: "2020-11-18T06:06:00+0100",
+          expectedDepartureTime: "2020-11-18T06:06:00+0100",
+          date: "2020-11-18",
+          destinationDisplay: {
+              frontText: "Vikåsen via Singsaker"
+          },
+          serviceJourney: {
+              journeyPattern: {
+              line: {
+                  name: "Vikåsen- Strindheim- Singsaker",
+                  transportMode: "bus"
+              }
+              }
+          }
+          },
+          {
+          realtime: false,
+          aimedArrivalTime: "2020-11-18T06:20:00+0100",
+          aimedDepartureTime: "2020-11-18T06:20:00+0100",
+          expectedArrivalTime: "2020-11-18T06:20:00+0100",
+          expectedDepartureTime: "2020-11-18T06:20:00+0100",
+          date: "2020-11-18",
+          destinationDisplay: {
+              frontText: "Vanvikan"
+          },
+          serviceJourney: {
+              journeyPattern: {
+              line: {
+                  name: "Trondheim - Vanvikan",
+                  transportMode: "water"
+              }
+              }
+          }
+          },
+          {
+          realtime: false,
+          aimedArrivalTime: "2020-11-18T06:20:00+0100",
+          aimedDepartureTime: "2020-11-18T06:20:00+0100",
+          expectedArrivalTime: "2020-11-18T06:20:00+0100",
+          expectedDepartureTime: "2020-11-18T06:20:00+0100",
+          date: "2020-11-18",
+          destinationDisplay: {
+              frontText: "Brekstad kai"
+          },
+          serviceJourney: {
+              journeyPattern: {
+              line: {
+                  name: "Trondheim - Brekstad",
+                  transportMode: "water"
+              }
+              }
+          }
+          },
+          {
+          realtime: false,
+          aimedArrivalTime: "2020-11-18T06:26:00+0100",
+          aimedDepartureTime: "2020-11-18T06:26:00+0100",
+          expectedArrivalTime: "2020-11-18T06:26:00+0100",
+          expectedDepartureTime: "2020-11-18T06:26:00+0100",
+          date: "2020-11-18",
+          destinationDisplay: {
+              frontText: "Vikåsen via Singsaker"
+          },
+          serviceJourney: {
+              journeyPattern: {
+              line: {
+                  name: "Vikåsen- Strindheim- Singsaker",
+                  transportMode: "bus"
+              }
+              }
+          }
+          }
+      ]
+  }
+  
+]
+
+const locations = [
+  {
+    name: "Trondheim",
+    id: "NSR:StopPlace:60066"
+  }
+
+]
 
 //Definging Querys
 const typeDefs = `
   type Query {
     stopPlace(id: String!): stopPlace
-    features(name: String!): [features]
+    features(name: String!): features
   }
 
   type features{
-    properties: properties
-  }
-
-  type properties {
-    id: String
     name: String
-    county: String
-    locality: String
+    id: String
   }
 
   type stopPlace {
@@ -55,9 +258,14 @@ const typeDefs = `
   }
 `;
 
+
 // Provide resolver functions for your schema fields
 const resolvers = {
   Query: {
+      stopPlace(parent, args, context, info) {
+        return stopPlaces.find(stopPlace => stopPlace.id === args.id)
+      },
+    /*
     stopPlace: async (_root, { id }) => {
       try {
         //Trying to fetch with POST from the API
@@ -87,7 +295,11 @@ const resolvers = {
       } catch (e) {
         console.error(e);
       }
-    },
+    }*/
+    features(parent, args, context, info) {
+      return locations.find(features => features.name === args.name)
+    }
+    /*
     features: async (_root, { name }) => {
       try {
         //Trying to fetch with GET from API
@@ -102,7 +314,7 @@ const resolvers = {
       } catch (e) {
         console.log(e);
       }
-    }
+    }*/
   }
 };
 

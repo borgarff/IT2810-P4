@@ -34,14 +34,11 @@ export const ArrivalTime: React.FC<timeProps> = ({estimatedArrival}) => {
     //Returns the time until arrival
     if (displayAsTime) {
         arrivalTimeText = (<Text style={({color: "white"})}>{zeroPadding(arrival.getHours(),2)}:{zeroPadding(arrival.getMinutes(),2)}</Text>);
-        console.log("Kommer snart")
     }
     else if (arrivingNow) {
-        console.log("Kommer nå")
         arrivalTimeText = (<Text style={({color: "white"})}>Kommer nå</Text>)
     }
     else {
-        console.log("Kommer om x min")
         arrivalTimeText = (<Text style={({color: "white"})}>om {Math.round(minUntilArrival)} min</Text>)
         
     }

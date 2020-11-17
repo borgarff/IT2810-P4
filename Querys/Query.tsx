@@ -16,6 +16,7 @@ query getStop($id: String!){
           line {
             name
             publicCode
+            transportMode
           }
         }
       }

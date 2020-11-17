@@ -8,7 +8,8 @@ export const styles = StyleSheet.create({
     },
     bodyStyles: {
         margin: 0,
-        backgroundColor: '#282c34'
+        backgroundColor: '#282c34',
+        fontFamily: "sans-serif", 
     },
     container: {
       flex: 1,
@@ -42,9 +43,10 @@ export const styles = StyleSheet.create({
       },
       depatureHeader: {
         flexDirection: 'row',
+        alignSelf: 'stretch',
         justifyContent: 'space-between',
         backgroundColor: 'lightseagreen',
-        margin: 10
+        
       },
       textStyles:{
         textAlign: 'center',

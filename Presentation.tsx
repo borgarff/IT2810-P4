@@ -67,14 +67,10 @@ export default function Presentation(props:Props){
             </View>
         );break;
         case "Geocoder": presentationView = (
-            <View >
+            <View>
                 <Button title="Nytt søk" onPress={() => props.new_search()}/>
                 <Text style={styles.textStyles}>Kommende avganger</Text>
-                <View style={styles.depatureHeader}>
-                    <Text>Ankomst</Text>
-                    <Text>Linje</Text>
-                    <Text>Rute</Text>
-                </View>
+                
                 <Travel id={props.id}/>
             </View>
         ); break;
